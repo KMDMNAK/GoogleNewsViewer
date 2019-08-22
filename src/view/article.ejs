@@ -1,0 +1,18 @@
+<%# used vars : element(of parse_object.items)  %>
+
+<div class="article">
+    <div class="title">
+        <a href="<%- element.link %>"><%- element.title %></a>
+    </div>
+    <span>
+        <% if(element.source!= undefined){ %>
+            <%- element.source["_"] %>
+        <% } %>
+    </span>
+    ・
+    <span>
+        <%- element.pubDate%>
+    </span>
+</div>
+
+
