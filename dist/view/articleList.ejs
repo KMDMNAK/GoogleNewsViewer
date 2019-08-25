@@ -1,0 +1,28 @@
+<%# used vars : items ,  %>
+    <html>
+
+    <head>
+    </head>
+
+    <body>
+        <style>
+            .article {
+                padding: 10px;
+            }
+            
+            .title {
+                font-size: 15px;
+            }
+        </style>
+        <div id="header">
+
+        </div>
+        <div id="article_list">
+            <% for (var i = 0; i < items.length; i++) { %>
+                <%- include('./article',{element:items[i]}) %>
+                    <% console.log(items[i]) %>
+                        <% } %>
+        </div>
+    </body>
+
+    </html>

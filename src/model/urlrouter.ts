@@ -36,18 +36,18 @@ export default class UrlRouter {
         return "error";
     }
     makeTopicUrl(TopicWord: string): string {
-        var url = `https://news.google.com/news/rss/headlines/section/topic/${TopicWord}`;
+        var url = `https://news.google.com/news/rss/headlines/section/topic/${TopicWord}?`;
         console.log("in maketopicurl" + url);
         return url;
     }
     makeGeoUrl(GeoWord: string) {
-        return `https://news.google.com/news/rss/headlines/section/geo/${GeoWord}`;
+        return `https://news.google.com/news/rss/headlines/section/geo/${GeoWord}?`;
     }
     makeQueryUrl(QueryString: string) {
-        return `https://news.google.com/rss/search?q=${QueryString}`;
+        return `https://news.google.com/rss/search?q=${QueryString}&`;
     }
     setLanguage(url:string,language_code:languages) {
-        return url + "?"+language_code;
+        return url + language_code;
     }
 }
 

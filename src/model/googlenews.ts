@@ -30,6 +30,7 @@ export default class GoogleNewsConnector {
             }
             throw new Error("in get")
         }).catch(err => {
+            vscode.window.showInformationMessage(err);
             console.log(err);
             return "";
         });

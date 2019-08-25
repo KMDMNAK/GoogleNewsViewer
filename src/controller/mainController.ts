@@ -14,12 +14,13 @@ enum CommandPaletteStrings {
     detailSearch = "googlenews.detail"
 }
 
-class CommandHandler {
+class CommandHandler implements vscode.Disposable {
     event: events.EventEmitter = new events.EventEmitter();
     vscodeContext: vscode.ExtensionContext;
     parettemodel = new ParetteModel();
     paretteview = new ParetteView();
     googlenews = new GoogleNews();
+    webviewpanels: vscode.WebviewPanel[] = [];
 
     constructor(vscodeContext: vscode.ExtensionContext) {
         this.vscodeContext = vscodeContext;
@@ -36,15 +37,20 @@ class CommandHandler {
     }
 
     executeTopicSearch() {
+        vscode.window.showInformationMessage("GN:1")
         vscode.window.showInformationMessage("Hello Topic Search!!");
-        var topic_list = this.parettemodel.onTopicSearch();
-        this.paretteview.showPick(topic_list).then((value) => {
-            console.log(value.command);
-            var urlrouter = new UrlRouter(value.command);
-            this.executeShowPanel(urlrouter);
-        }, error => {
-            vscode.window.showErrorMessage('error in executeTopicSearch: ' + error);
-        });
+        try {
+            var topic_list = this.parettemodel.onTopicSearch();
+            this.paretteview.showPick(topic_list).then((value) => {
+                vscode.window.showInformationMessage(value.command);
+                var urlrouter = new UrlRouter(value.command);
+                this.executeShowPanel(urlrouter);
+            }, error => {
+                vscode.window.showErrorMessage('error in executeTopicSearch: ' + error);
+            });
+        } catch (err) {
+            vscode.window.showInformationMessage(err);
+        }
     }
 
     executeGeoSearch() {
@@ -74,16 +80,21 @@ class CommandHandler {
 
     executeShowPanel(urlrouter: UrlRouter) {
         var url = urlrouter.startRouting();
-        console.log(url);
+        vscode.window.showInformationMessage(url);
         this.googlenews.getContent(url).then((items) => {
             console.log("in panelshow");
             console.log(items);
             var data = { items: items };
-            var webviewpanel = new WebViewPanel();
-            webviewpanel.getSearchTopicPanel(this.vscodeContext, data).then((html) => {
-                webviewpanel.getWebViewPanel(`${urlrouter.value}`, html).reveal(vscode.ViewColumn.Beside, false);
+            var webviewpanel_const = new WebViewPanel();
+            vscode.window.showInformationMessage("Hello executeShowPanel!");
+            webviewpanel_const.getSearchTopicPanel(this.vscodeContext, data).then((html) => {
+                var pushed_item: vscode.WebviewPanel = webviewpanel_const.getWebViewPanel(`${urlrouter.value}`, html);
+                pushed_item.reveal()/*(vscode.ViewColumn.Beside, false);*/
+                this.webviewpanels.push(pushed_item);
             });
-        })
+        }, err => {
+            vscode.window.showInformationMessage(err);
+        });
 
     }
     eventRouter(inputCommand: CommandPaletteStrings) {
@@ -108,19 +119,29 @@ class CommandHandler {
             this.addCommand(value);
         });
     }
+    dispose() {
+        this.webviewpanels.forEach((element) => {
+            element.dispose()
+        })
+    }
 }
 
 
-export default class MainController {
+export default class MainController  implements vscode.Disposable{
     vscodeContext: vscode.ExtensionContext;
+    commandhandler: CommandHandler;
 
     constructor(vscodeContext: vscode.ExtensionContext) {
+        
         this.vscodeContext = vscodeContext;
+        this.commandhandler = new CommandHandler(this.vscodeContext);
     }
 
     activate() {
         console.log("activated maincontroller");
-        var commandhandler = new CommandHandler(this.vscodeContext);
-        commandhandler.registerComands();
+        this.commandhandler.registerComands();
+    }
+    dispose() {
+        this.commandhandler.dispose();
     }
 }
