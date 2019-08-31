@@ -8,7 +8,6 @@ export interface PickInterface{
 
 export default class ParetteModel{
     onTopicSearch() {
-        vscode.window.showInformationMessage("onTopicSearch");
         const pickItems = {
             showList: [
                 { label: 'World', description: 'search World news in google news',command:GoogleNewsCommands.searchTopicWorld },

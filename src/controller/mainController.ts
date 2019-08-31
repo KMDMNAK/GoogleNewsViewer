@@ -26,8 +26,7 @@ class CommandHandler implements vscode.Disposable {
         this.vscodeContext = vscodeContext;
     }
 
-    addCommand(
-        command_string: CommandPaletteStrings) {
+    addCommand(command_string: CommandPaletteStrings) {
         const this_temp = this;
         this.vscodeContext.subscriptions.push(
             vscode.commands.registerCommand(command_string, () => {
@@ -37,12 +36,9 @@ class CommandHandler implements vscode.Disposable {
     }
 
     executeTopicSearch() {
-        vscode.window.showInformationMessage("GN:1")
-        vscode.window.showInformationMessage("Hello Topic Search!!");
         try {
             var topic_list = this.parettemodel.onTopicSearch();
             this.paretteview.showPick(topic_list).then((value) => {
-                vscode.window.showInformationMessage(value.command);
                 var urlrouter = new UrlRouter(value.command);
                 this.executeShowPanel(urlrouter);
             }, error => {
@@ -61,8 +57,6 @@ class CommandHandler implements vscode.Disposable {
             var urlrouter = new UrlRouter(GoogleNewsCommands.searchGeo, value);
             this.executeShowPanel(urlrouter);
         });
-
-        vscode.window.showInformationMessage("Hello Geo Search!!");
     }
     executeQuerySearch() {
         vscode.window.showInputBox({
@@ -72,7 +66,6 @@ class CommandHandler implements vscode.Disposable {
             var urlrouter = new UrlRouter(GoogleNewsCommands.searchQuery, value);
             this.executeShowPanel(urlrouter);
         });
-        vscode.window.showInformationMessage("Hello Query Search!!");
     }
     executeDetailSearch() {
         vscode.window.showInformationMessage("Hello Detail Search!!");
@@ -86,7 +79,6 @@ class CommandHandler implements vscode.Disposable {
             console.log(items);
             var data = { items: items };
             var webviewpanel_const = new WebViewPanel();
-            vscode.window.showInformationMessage("Hello executeShowPanel!");
             webviewpanel_const.getSearchTopicPanel(this.vscodeContext, data).then((html) => {
                 var pushed_item: vscode.WebviewPanel = webviewpanel_const.getWebViewPanel(`${urlrouter.value}`, html);
                 pushed_item.reveal()/*(vscode.ViewColumn.Beside, false);*/
@@ -127,12 +119,12 @@ class CommandHandler implements vscode.Disposable {
 }
 
 
-export default class MainController  implements vscode.Disposable{
+export default class MainController implements vscode.Disposable {
     vscodeContext: vscode.ExtensionContext;
     commandhandler: CommandHandler;
 
     constructor(vscodeContext: vscode.ExtensionContext) {
-        
+
         this.vscodeContext = vscodeContext;
         this.commandhandler = new CommandHandler(this.vscodeContext);
     }

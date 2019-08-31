@@ -2,7 +2,7 @@
     "name": "googlenewsviewer",
     "displayName": "GoogleNewsViewer",
     "description": "you can read Google News on VSCode.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "engines": {
         "vscode": "^1.37.0"
     },
@@ -12,6 +12,7 @@
     "activationEvents": [
         "*"
     ],
+    "keywords": ["googlenews"],
     "main": "./dist/extension.js",
     "contributes": {
         "commands": [{
@@ -30,8 +31,28 @@
                 "command": "googlenews.detail",
                 "title": "Google News: detail search"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "GoogleNews",
+            "properties": {
+                "googleNews.language": {
+                    "type": "string",
+                    "default": "JAPANESE",
+                    "enum": [
+                        "JAPANESE",
+                        "ENGLISH",
+                        "SPANISH",
+                        "DEUTCHE",
+                        "ARABIC"
+                    ]
+                },
+                "googleNews.show item": {
+                    "type": "string"
+                }
+            }
+        }
     },
+
     "scripts": {
         "vscode:prepublish": "webpack --mode production && cpx \"src/**/*.ejs\" dist",
         "test-compile": "tsc -p ./",
