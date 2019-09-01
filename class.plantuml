@@ -1,0 +1,61 @@
+@@startuml test
+
+
+(*) --> [activate] dispatch
+
+"dispatch" --> [generate] "Palette Store"
+"dispatch" --> [generate] "WebView Store" 
+"WebView Store" --> Action
+"Palette Store"  --> Action
+Action --> dispatch
+
+@@enduml
+
+@@startuml Sequence
+-> dispatcher : activate
+dispatcher -> "Palette Store" : create
+"Palette Store" --> dispatcher : dispatch action
+@@enduml
+
+@@startuml Activity
+(*) --> "create dispatcher"
+"create dispatcher" --> "create PaletteStore"
+"create PaletteStore" --> "dispatch Action-View"
+if "ViewStore which has key of Action exist" then
+    -> dispatch the Store
+else
+    -> create a store 
+    -> dispatch the Store
+
+@@enduml
+
+@@startuml usecase
+agent dispatcher
+
+node stores{
+    [PaletteViewStore]
+    [WebViewStore]
+}
+
+package Action{
+    [searchQuery]
+}
+node views{
+    [Webview]
+    [VscodePalette]
+}
+
+(start extension) -down-> dispatcher :create
+dispatcher -down-> PaletteViewStore : create
+dispatcher -down-> WebViewStore : create by Action
+dispatcher <- Action
+
+searchQuery <- stores :regist actions
+views -> Action : dispatch
+
+
+WebViewStore -down-> Webview : generate & Postmessage
+WebViewStore <-down- Webview : postMessaage
+
+User -> Webview : event
+@@enduml
