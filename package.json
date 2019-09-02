@@ -1,49 +1,67 @@
 {
-  "name": "google-news-reader",
-  "displayName": "Google News Reader",
-  "description": "you can read google news on vscode",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.37.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onCommand:extension.helloWorld"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "extension.helloWorld",
-        "title": "Hello World"
-      }
-    ]
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile",
-    "test": "node ./out/test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/glob": "^7.1.1",
-    "@types/mocha": "^5.2.6",
-    "@types/moment": "^2.13.0",
-    "@types/node": "^10.12.21",
-    "@types/node-fetch": "^2.5.0",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0",
-    "@types/vscode": "^1.37.0",
-    "glob": "^7.1.4",
-    "mocha": "^6.1.4",
-    "tslint": "^5.12.1",
-    "typescript": "^3.3.1",
-    "vscode-test": "^1.0.2"
-  },
-  "dependencies": {
-    "rss-parser": "^3.7.2"
-  }
+    "name": "google-news-reader",
+    "displayName": "Google News Reader",
+    "description": "you can read google news on vscode",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.37.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension.js",
+
+    "contributes": {
+        "commands": [{
+                "command": "googlenews.react.helloWorld",
+                "title": "Hello world react reader!!!"
+            },
+            {
+                "command": "googlenews.view.search.query",
+                "title": "Search Query"
+            },
+            {
+                "command": "googlenews.view.search.geo",
+                "title": "Search Geo"
+            },
+            {
+                "command": "googlenews.view.search.topic",
+                "title": "Search Topic"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile",
+        "test": "node ./out/test/runTest.js",
+        "compileWebview": "webpack --mode production --config webpack.config.view.js",
+        "compileMain": "webpack --mode production --config webpack.config.src.js"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^5.2.6",
+        "@types/moment": "^2.13.0",
+        "@types/node": "^10.12.21",
+        "@types/node-fetch": "^2.5.0",
+        "@types/react": "^16.9.2",
+        "@types/react-dom": "^16.9.0",
+        "@types/vscode": "^1.37.0",
+        "glob": "^7.1.4",
+        "mocha": "^6.1.4",
+        "ts-loader": "^6.0.4",
+        "tslint": "^5.12.1",
+        "typescript": "^3.3.1",
+        "vscode-test": "^1.0.2",
+        "webpack": "^4.39.3",
+        "webpack-cli": "^3.3.7",
+        "webpack-merge": "^4.2.2"
+    },
+    "dependencies": {
+        "rss-parser": "^3.7.2"
+    }
 }

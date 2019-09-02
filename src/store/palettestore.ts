@@ -21,9 +21,13 @@ export default class PaletteStore extends Store {
     constructor(dispatcher: Dispatch, key: string, vscodeContext: vscode.ExtensionContext) {
         super(dispatcher);
         this.vscodeContext = vscodeContext;
-
+        if(vscodeContext===undefined){
+            vscode.window.showInformationMessage("context is undefined!!")
+        }
+        this.activate()
     }
     activate() {
+        vscode.window.showInformationMessage("in paletteStore activate")
         //register search query
         const viewSearchQueryAction: ActionContent = {
             commandName: ActionCommands.viewSearchQuery,
@@ -42,7 +46,7 @@ export default class PaletteStore extends Store {
             });
         });
 
-        // register geo search
+        // register vscode palette geo search
         const viewSearchGeoAction: ActionContent = {
             commandName: ActionCommands.viewSearchGeo,
         }

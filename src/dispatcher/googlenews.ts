@@ -3,7 +3,6 @@ import fetch from 'node-fetch';
 import RssParser = require('rss-parser');
 import * as moment from 'moment';
 import * as vscode from 'vscode';
-import { parse } from 'path';
 
 export default class GoogleNewsConnector {
 

@@ -46,16 +46,16 @@ node views{
 }
 
 (start extension) -down-> dispatcher :create
-dispatcher -down-> PaletteViewStore : create
-dispatcher -down-> WebViewStore : create by Action
-dispatcher <- Action
+dispatcher -> PaletteViewStore : create
+dispatcher -> WebViewStore : create by Action
+Action -left-> dispatcher
 
-searchQuery <- stores :regist actions
-views -> Action : dispatch
+dispatcher <- stores :regist actions
+views -up-> dispatcher : dispatch
+stores -down-> views
 
-
-WebViewStore -down-> Webview : generate & Postmessage
-WebViewStore <-down- Webview : postMessaage
+WebViewStore -> Webview : message
+WebViewStore <- Webview : message
 
 User -> Webview : event
 @@enduml

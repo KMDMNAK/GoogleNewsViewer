@@ -3,12 +3,11 @@ import { jsfileuri } from '../config'
 import Store from './store'
 import Dispatch from '../dispatcher/dispatch'
 import { ActionCommands, ActionContent } from '../action';
-import { router } from './urlrouter';
-import GoogleNewsConnector from './googlenews';
+
 
 export default class WebViewStore extends Store {
     webviewpanel: vscode.WebviewPanel;
-    googlenewsconnector: GoogleNewsConnector = new GoogleNewsConnector();
+    
     key: string ="" ;
     articleDatas: any;
 
@@ -32,10 +31,6 @@ export default class WebViewStore extends Store {
             });
         this.webviewpanel.webview.html = getWebviewHtmlTemplate(jsfileuri);
         this.webviewpanel.reveal();
-
-        this.registerCommand(ActionCommands.searchTopic);
-        this.registerCommand(ActionCommands.searchGeo);
-        this.registerCommand(ActionCommands.searchQuery);
     }
 
     postViewDatas() {
@@ -47,19 +42,7 @@ export default class WebViewStore extends Store {
         }
     }
 
-    registerCommand(commandName: ActionCommands) {
-        this.dispatcher.register(
-            commandName,
-            (action: ActionContent) => {
-                const url = router(action) as string;
-                this.googlenewsconnector.getContent(url).then((article_array: any) => {
-                    this.articleDatas = article_array;
-                    this.key = action.key as string;
-                    this.postViewDatas();
-                });
-            }
-        )
-    }
+    
 }
 
 const getWebviewHtmlTemplate = (jsfileuri: string) => `
