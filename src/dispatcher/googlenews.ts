@@ -5,7 +5,6 @@ import * as moment from 'moment';
 import * as vscode from 'vscode';
 
 export default class GoogleNewsConnector {
-
     rssParser: RssParser = new RssParser({
         customFields: {
             item: [
@@ -13,13 +12,18 @@ export default class GoogleNewsConnector {
                 ["source", "source"],
                 ["description", "description"]
             ]
-        }
+        },/*
+        xml2js: {
+            charkey:'C',
+            attrkey:"A"
+        }*/
+
     });
 
-    getContent(url:string,isDated:boolean=true): Thenable<any>{
+    getContent(url: string, isDated: boolean = true): Thenable<any> {
         return this.getText(url).then((text: string) => {
-            return this.convertText2Object(text,isDated)
-        }).then((parse_object:any) => {
+            return this.convertText2Object(text, isDated)
+        }).then((parse_object: any) => {
             return this.getDated(parse_object)
         })
     }
@@ -29,16 +33,16 @@ export default class GoogleNewsConnector {
         var encoded_url = encodeURI(url);
         console.log(encoded_url);
         console.log("in get Text");
-        return fetch(url).then((response:any) => {
+        return fetch(encoded_url).then((response: any) => {
             const responseBodyPromise = response.text();
             return responseBodyPromise
                 .then((body: string) => { return ({ body: body, responseOk: response.ok }) })
-        }).then((checker:any) => {
+        }).then((checker: any) => {
             if (checker.responseOk) {
                 return checker.body;
             }
             throw new Error("in get")
-        }).catch((err:any) => {
+        }).catch((err: any) => {
             vscode.window.showInformationMessage(err);
             console.log(err);
             return "";
@@ -47,7 +51,7 @@ export default class GoogleNewsConnector {
     }
 
     private convertText2Object(text: string, isDated: boolean = true): Thenable<any> {
-        console.log("break3")
+        console.log("break3");
         return this.rssParser.parseString(text);
     }
 
@@ -72,6 +76,6 @@ export default class GoogleNewsConnector {
         return items;
     }
 
-    
+
 }
 

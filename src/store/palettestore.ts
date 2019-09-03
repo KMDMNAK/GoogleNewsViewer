@@ -5,14 +5,14 @@ import { ActionCommands, ActionContent } from '../action';
 
 const pickItems = {
     showList: [
-        { label: 'World', description: 'search World news in google news', commandName: ActionCommands.searchTopic },
-        { label: 'Business', description: 'search Business news in google news', commandName: ActionCommands.searchTopic },
-        { label: 'Nation', description: 'search Nation news in google news', commandName: ActionCommands.searchTopic },
-        { label: 'Technology', description: 'search Technology news in google news', commandName: ActionCommands.searchTopic },
-        { label: 'Entertainment', description: 'search Entertainment news in google news', commandName: ActionCommands.searchTopic },
-        { label: 'Sports', description: 'search Sports news in google news', commandName: ActionCommands.searchTopic },
-        { label: 'Science', description: 'search Science news in google news', commandName: ActionCommands.searchTopic },
-        { label: 'Health', description: 'search Health news in google news', commandName: ActionCommands.searchTopic }
+        { label: 'WORLD', description: 'search World news in google news', commandName: ActionCommands.searchTopic },
+        { label: 'BUSINESS', description: 'search Business news in google news', commandName: ActionCommands.searchTopic },
+        { label: 'NATION', description: 'search Nation news in google news', commandName: ActionCommands.searchTopic },
+        { label: 'TECHNOLOGY', description: 'search Technology news in google news', commandName: ActionCommands.searchTopic },
+        { label: 'ENTERTAINMENT', description: 'search Entertainment news in google news', commandName: ActionCommands.searchTopic },
+        { label: 'SPORTS', description: 'search Sports news in google news', commandName: ActionCommands.searchTopic },
+        { label: 'SCIENCE', description: 'search Science news in google news', commandName: ActionCommands.searchTopic },
+        { label: 'HEALTH', description: 'search Health news in google news', commandName: ActionCommands.searchTopic }
     ], otherOptions: { matchOnDescription: true, placeHolder: 'Select a Task' }
 };
 
@@ -24,7 +24,7 @@ export default class PaletteStore extends Store {
         if(vscodeContext===undefined){
             vscode.window.showInformationMessage("context is undefined!!")
         }
-        this.activate()
+        this.activate();
     }
     activate() {
         vscode.window.showInformationMessage("in paletteStore activate")
@@ -42,7 +42,7 @@ export default class PaletteStore extends Store {
                     key: ActionCommands.searchQuery + `.${value}`,
                     value: value
                 }
-                this.dispatcher.dispatch(action)
+                this.dispatcher.dispatch(action);
             });
         });
 

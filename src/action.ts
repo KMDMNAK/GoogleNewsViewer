@@ -9,12 +9,13 @@ export enum ActionCommands {
     viewSearchQuery = "googlenews.view.search.query",
     viewSearchGeo = "googlenews.view.search.geo",
     viewSearchTopic = "googlenews.view.search.topic",
+    viewClose="googlenews.view.close"
 }
 
 export interface ActionContent {
-    key?: string,// the unique key of the event origin
-    commandName: ActionCommands,
-    value?: any
+    key?: string;// the unique key of the event origin
+    commandName: ActionCommands;
+    value?: any;
 }
 
 /*

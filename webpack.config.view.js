@@ -10,6 +10,6 @@ module.exports = merge(common, {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].entry.js',
         devtoolModuleFilenameTemplate: '../[resource-path]',
-        library: 'MyLibrary'
+        library: 'ViewNameSpace'
     }
 })
