@@ -35,7 +35,9 @@ export default class Dispatch {
         this.register(
             commandName,
             (action: ActionContent) => {
-                const action_key = action.key;
+                // storeの生成は後回し
+                //const action_key = action.key;
+                const action_key = "view one";
                 if(action_key===undefined){
                     throw new Error("action.key is undefined");
                 }
@@ -58,12 +60,10 @@ export default class Dispatch {
         this.event.on(
             commandName,
             (data: ActionContent) => callback(data)
-        )
+        );
     }
 
     dispatch(action: ActionContent) {
         this.event.emit(action.commandName, action)
     }
-
-    
 }

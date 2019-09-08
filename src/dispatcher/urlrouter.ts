@@ -1,7 +1,7 @@
 import { ActionContent, ActionCommands } from "../action";
-import GoogleNewsConfigures from '../configures';
+import GoogleNewsSettings from '../settings';
 
-const configures = new GoogleNewsConfigures();
+const Settings = new GoogleNewsSettings();
 
 export const router = (action: ActionContent) => {
     console.log("in router" + action.value);
@@ -9,12 +9,15 @@ export const router = (action: ActionContent) => {
     switch (action.commandName) {
         case ActionCommands.searchGeo:
             url = `https://news.google.com/news/rss/headlines/section/geo/${action.value}?`;
+            break;
         case ActionCommands.searchQuery:
             url = `https://news.google.com/rss/search?q=${action.value}&`;
+            break;
         case ActionCommands.searchTopic:
             url = `https://news.google.com/news/rss/headlines/section/topic/${action.value}?`;
+            break;
     }
-    url += languagesDict[configures.getLanguage()] + "&";
+    url += languagesDict[Settings.getLanguage()] + "&";
     return url;
 }
 

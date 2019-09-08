@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-export default class GoogleNewsConfigures {
+export default class GoogleNewsSettings {
     configuration: vscode.WorkspaceConfiguration
         = vscode.workspace.getConfiguration("googleNews");
 
