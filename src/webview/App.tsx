@@ -1,50 +1,55 @@
 import * as React from 'react';
-
 import { render } from 'react-dom';
 import { REACT_CONTAINER_TAGNAME } from '../config'
 import Key from './key';
 import Navigation from './navigation';
 import Article from './article';
-/*
-interface VscodeNameSpace {
+
+
+export interface VscodeNameSpace {
     postMessage: any;
     window: any;
 }
-declare var vscode: VscodeNameSpace;
-export const activate = (vscode: VscodeNameSpace) => {
-    vscode = vscode;
-    render(<WebView />, document.getElementById(REACT_CONTAINER_TAGNAME));
+//export var vscode: VscodeNameSpace;
+export const activate = (vscode1: VscodeNameSpace) => {
+    const vscode = vscode1;
+    //vscode.window.showInformationMessage("HEY!")
+    render(<WebView vscode={vscode}/>, document.getElementById(REACT_CONTAINER_TAGNAME));
 };
-*/
 
-export default class WebView extends React.Component<{}, { key: string, articledatas: any[] }>{
+export default class WebView extends React.Component<{ vscode: VscodeNameSpace }, { action_key: string, articledatas: any[] }>{
+    vscode: VscodeNameSpace;
     constructor(props?: any) {
         super(props);
+        this.vscode = props.vscode;
         this.state = {
-            key: "default",
+            action_key: "action default",
             articledatas: [{ title: "default" }]
-        }
+        };
 
         window.addEventListener('message', event => {
             const message = event.data; // The JSON data our extension sent
+            //vscode.window.showInformationMessage("get message")
             this.setState({
-                key: message.key,
+                action_key: message.action_key,
                 articledatas: message.articledatas
-            })
+            });
         });
     }
 
     render() {
+        //this.vscode.window.showInformationMessage("rendered App")
         return (
             <div>
                 <h1>HELLO REACT!</h1>
-                <Key key={this.state.key} />
+                <Key action_key={this.state.action_key} />
                 <div>
                     <Navigation />
-                    <Article articledatas={this.state.articledatas} />
+                    <Article articledatas={this.state.articledatas} vscode={this.vscode} />
                 </div>
             </div>
         );
     }
 }
-
+//<Article articledatas={this.state.articledatas} vscode={vscode} />
+//render(<WebView />, document.getElementById(REACT_CONTAINER_TAGNAME));

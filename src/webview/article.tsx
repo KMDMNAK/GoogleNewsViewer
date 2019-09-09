@@ -1,10 +1,23 @@
 import * as React from 'react';
+import { ActionCommands ,ActionContent} from '../action';
+import { VscodeNameSpace } from './App'
 
-export default class Article extends React.Component<{ articledatas: any[] }>{
+export default class Article extends React.Component<{ articledatas: any[], vscode: VscodeNameSpace }>{
+    vscode: VscodeNameSpace;
     constructor(props: any) {
         super(props);
+        this.vscode = props.vscode;
+        this.postData = this.postData.bind(this);
+        //this.vscode.window.showInformationMessage("rendered article")
     }
-
+    postData(url: string) {
+        const action: ActionContent = {
+            commandName: ActionCommands.searchQuery,
+            value:`site:${url}`
+        }
+        //this.vscode.window.showInformationMessage("posted data")
+        this.vscode.postMessage(action);
+    }
     render() {
         return (
             <div>
@@ -24,7 +37,7 @@ export default class Article extends React.Component<{ articledatas: any[] }>{
                         <div>
                             {(() => {
                                 if (each_article.source && each_article.source._) {
-                                    return <span>{each_article.source._}・</span>;
+                                    return <span><a href="" onClick={()=>this.postData(each_article.source.$.url)}>{each_article.source._}</a>&ensp;&ensp;</span>;
                                 }
                             })()}
                             <span>{each_article.pubDate}</span>

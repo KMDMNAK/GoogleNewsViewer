@@ -2,7 +2,6 @@ import * as React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-
 import * as moment from 'moment';
 
 /*
@@ -17,7 +16,7 @@ export default class Navigation extends React.Component {
             position: "sticky",
             top: 0
         };
-        const [selectedDate, handleDateChange]: any[] = useState(new Date());
+        //const [selectedDate, handleDateChange]: any[] = useState(new Date());
         return (
             <nav id="controller" style={style}>
                 <DateAndTimePickers />
@@ -27,9 +26,8 @@ export default class Navigation extends React.Component {
     }
 }
 
-const DateAndTimePickers = () => {
+export const DateAndTimePickers = () => {
     const classes = useStyles();
-
     return (
         <form className={classes.container} noValidate>
             <TextField
@@ -44,9 +42,10 @@ const DateAndTimePickers = () => {
             />
         </form>
     );
+    
 };
 
-const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',

@@ -28,6 +28,7 @@ export default class Dispatch {
         this.registerSearchCommand(ActionCommands.searchGeo);
         this.registerSearchCommand(ActionCommands.searchQuery);
         this.register(ActionCommands.viewClose, (action: ActionContent) => {
+            console.log(action.key)
             delete this.webviewstores[action.key as string];
         });
     }
@@ -36,22 +37,22 @@ export default class Dispatch {
             commandName,
             (action: ActionContent) => {
                 // storeの生成は後回し
-                //const action_key = action.key;
-                const action_key = "view one";
+                const action_key = action.key;
+                const store_key="view one"
                 if(action_key===undefined){
                     throw new Error("action.key is undefined");
                 }
-                let store = this.webviewstores[action_key];
+                let store = this.webviewstores[store_key];
                 if (!store) {
                     console.log("new webviewpanel")
-                    store=new WebViewStore(this,action_key,this.extensionPath);
+                    store=new WebViewStore(this,store_key,this.extensionPath);
                 }
                 console.log("action key is "+action_key)
                 const url = router(action) as string;
                 this.googlenewsconnector.getContent(url).then((article_array: any) => {
-                    store.articleDatas = article_array;
-                    store.onDisplay()
-                    this.webviewstores[action_key] = store;
+                    //store.articleDatas = article_array;
+                    store.updateData(article_array, action_key);
+                    this.webviewstores[store_key] = store;
                 });
             }
         )

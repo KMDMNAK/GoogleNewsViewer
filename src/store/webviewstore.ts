@@ -7,16 +7,17 @@ import * as path from 'path';
 
 export default class WebViewStore extends Store {
     webviewpanel: vscode.WebviewPanel;
-
-    key: string ;
+    action_key: string="";
+    store_key: string ;
     articleDatas: any;
     extensionPath: string;
-    constructor(dispatcher: Dispatch, key: string, extensionPath: string) {
+    constructor(dispatcher: Dispatch, store_key: string, extensionPath: string) {
         super(dispatcher);
+        this.store_key = store_key;
         this.extensionPath = extensionPath;
         this.webviewpanel = vscode.window.createWebviewPanel(
             'googlenews',
-            key,
+            this.action_key,
             { viewColumn: vscode.ViewColumn.Active },
             {
                 enableScripts: true,
@@ -24,42 +25,48 @@ export default class WebViewStore extends Store {
                 retainContextWhenHidden:true
             }
         );
-        this.key = key;
-    }
-    onDisplay() {
-        // ホントはviewで行うべき
         this.webviewpanel.webview.onDidReceiveMessage(
             message => {
+                console.log("get a message")
+                if (message.commandName === "test") {
+                    console.log("test")
+                    console.log(message.value);
+                    return;
+                }
                 this.dispatcher.dispatch({
                     commandName: message.commandName,
-                    key: message.key,
+                    key: this.store_key,
                     value: message.value
                 });
+                
             }
         );
-        console.log("in onDisplay")
-        this.webviewpanel.webview.html = this.getWebviewHtmlTemplate(JSFILE_URI);
-        console.log("reveal panel")
-        this.webviewpanel.reveal();
-        this.postViewDatas();
-        
         this.webviewpanel.onDidDispose(() => {
             const action:ActionContent={
-                key: this.key,
+                key: this.store_key,
                 commandName: ActionCommands.viewClose,
             }
             this.dispatcher.dispatch(action);
         });
+        this.webviewpanel.webview.html = this.getWebviewHtmlTemplate(JSFILE_URI);
+        this.webviewpanel.reveal();
         
+    }
+    updateData(articleDatas:any,action_key:string) {
+        // ホントはviewで行うべき
+        this.articleDatas = articleDatas;
+        this.action_key = action_key;
+        this.webviewpanel.title = action_key;
+        this.postViewDatas();
     }
     postViewDatas() {
         if (this.webviewpanel.visible) {
             console.log("in postviewdatas")
-            console.log(this.key)
+            console.log(this.action_key)
             console.log(this.articleDatas[0])
             console.log(this.articleDatas[this.articleDatas.length-1])
             this.webviewpanel.webview.postMessage({
-                key: this.key,
+                action_key: this.action_key,
                 articledatas: this.articleDatas
             });
         }
@@ -73,7 +80,8 @@ export default class WebViewStore extends Store {
         <div id="${REACT_CONTAINER_TAGNAME}"></div>
         <script src="${vscode.Uri.file(path.join(this.extensionPath, "dist", jsfileuri)).with({ scheme: 'vscode-resource' })}"></script>
         <script>
-            ${VIEW_NAME_SPACE}.activate(acquireVsCodeApi())
+            const vscode=acquireVsCodeApi();
+            ${VIEW_NAME_SPACE}.activate(vscode);
         </script>
         <style>
             body.vscode-light {

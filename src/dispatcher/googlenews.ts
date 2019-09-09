@@ -61,7 +61,7 @@ export default class GoogleNewsConnector {
         parse_object.items
         */
         parse_object.items.forEach((element: any) => {
-            element.pubDate = moment(element.pubDate);
+            element.pubDate = moment(element.pubDate).format('YYYY-MM-DD HH:mm');
         });
 
         var items = parse_object.items.sort((a: any, b: any) => {
