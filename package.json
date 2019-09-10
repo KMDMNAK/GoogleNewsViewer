@@ -1,8 +1,8 @@
 {
     "name": "googlenewsviewer",
-    "displayName": "GoogleNewsViewer",
+    "displayName": "Google News Viewer",
     "description": "you can read Google News on VSCode.",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "engines": {
         "vscode": "^1.37.0"
     },

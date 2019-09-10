@@ -16,7 +16,17 @@ export default class GoogleNewsConnector {
             ]
         }
     });
-    getText(url: string) {
+
+    getContent(url:string,isDated:boolean=true): Thenable<any>{
+        return this.getText(url).then((text: string) => {
+            return this.convertText2Object(text,isDated)
+        }).then(parse_object => {
+            return this.getDated(parse_object)
+        })
+    }
+
+    // fetch to url and get text
+    private getText(url: string) {
         var encoded_url = encodeURI(url);
         console.log(encoded_url);
         console.log("in get Text");
@@ -37,11 +47,12 @@ export default class GoogleNewsConnector {
         throw new Error("out")
     }
 
-    convertText2Object(text: string, isDated: boolean = true): Thenable<any> {
+    private convertText2Object(text: string, isDated: boolean = true): Thenable<any> {
         console.log("break3")
         return this.rssParser.parseString(text);
     }
-    getDated(parse_object: any) {
+
+    private getDated(parse_object: any) {
         /*
         var pubDates=parse_object.items.map((element: any) => moment(element.pubDate));
         parse_object.items
@@ -61,12 +72,7 @@ export default class GoogleNewsConnector {
         });
         return items;
     }
-    getContent(url:string): Thenable<any>{
-        return this.getText(url).then((text: string) => {
-            return this.convertText2Object(text)
-        }).then(parse_object => {
-            return this.getDated(parse_object)
-        });
-    }
+
+    
 }
 
