@@ -76,7 +76,6 @@ export default class WebViewStore extends Store {
 <html>
     <head></head>
     <body>
-    <h1>Hello WebView!</h1>
         <div id="${REACT_CONTAINER_TAGNAME}"></div>
         <script src="${vscode.Uri.file(path.join(this.extensionPath, "dist", jsfileuri)).with({ scheme: 'vscode-resource' })}"></script>
         <script>

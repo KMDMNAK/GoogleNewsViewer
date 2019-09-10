@@ -53,7 +53,6 @@ export default class WebView extends React.Component<{ }, { action_key: string, 
                     }
                     `}
                 </style>
-                <h1>HELLO REACT!</h1>
                 <Key action_key={this.state.action_key} />
                 <div>
                     <Navigation />
