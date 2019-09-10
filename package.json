@@ -91,5 +91,10 @@
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
         "rss-parser": "^3.7.2"
+    },
+    "publisher": "GoogleNewsViewer",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/KMDMNAK/GoogleNewsViewer.git"
     }
 }
