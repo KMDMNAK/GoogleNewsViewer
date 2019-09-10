@@ -11,7 +11,6 @@ export default class GoogleNewsSettings {
     constructor() {
         vscode.workspace.onDidChangeConfiguration(() => {
             this.configuration = vscode.workspace.getConfiguration("googleNews");
-            vscode.window.showInformationMessage("changed configure");
-        })
+        });
     }
 }

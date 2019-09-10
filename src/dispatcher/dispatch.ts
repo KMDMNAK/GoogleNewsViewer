@@ -23,7 +23,6 @@ export default class Dispatch {
     }
 
     activate() {
-        vscode.window.showInformationMessage("in dipatch activate")
         this.registerSearchCommand(ActionCommands.searchTopic);
         this.registerSearchCommand(ActionCommands.searchGeo);
         this.registerSearchCommand(ActionCommands.searchQuery);

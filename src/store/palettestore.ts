@@ -27,7 +27,6 @@ export default class PaletteStore extends Store {
         this.activate();
     }
     activate() {
-        vscode.window.showInformationMessage("in paletteStore activate")
         //register search query
         const viewSearchQueryAction: ActionContent = {
             commandName: ActionCommands.viewSearchQuery,
@@ -88,11 +87,4 @@ export default class PaletteStore extends Store {
         );
         this.dispatcher.register(action.commandName, callback);
     }
-
-    // Palette Vieww
-    showPicks(pickObject: any) {
-        console.log("showpick in view");
-        vscode.window.showInformationMessage("showpick in view");
-    }
-
 }

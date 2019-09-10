@@ -1,46 +1,70 @@
-import * as React from 'react';
-import { ActionCommands ,ActionContent} from '../action';
-import { VscodeNameSpace } from './App'
+/// <reference path="./App.tsx" />
 
-export default class Article extends React.Component<{ articledatas: any[], vscode: VscodeNameSpace }>{
-    vscode: VscodeNameSpace;
+import * as React from 'react';
+import { ActionCommands, ActionContent } from '../action';
+//import { VscodeNameSpace } from './App'
+
+//export default class Article extends React.Component<{ articledatas: any[], vscode: VscodeNameSpace }>{
+    export default class Article extends React.Component<{ articledatas: any[]}>{
+    //vscode: VscodeNameSpace;
     constructor(props: any) {
         super(props);
-        this.vscode = props.vscode;
         this.postData = this.postData.bind(this);
         //this.vscode.window.showInformationMessage("rendered article")
     }
     postData(url: string) {
         const action: ActionContent = {
             commandName: ActionCommands.searchQuery,
-            value:`site:${url}`
+            value: `site:${url}`
         }
         //this.vscode.window.showInformationMessage("posted data")
-        this.vscode.postMessage(action);
+        vscode.postMessage(action);
     }
     render() {
         return (
-            <div>
+            <div id="articles">
                 <style>
                     {`
-                    .article {
-                        padding: 10px
+                    #articles {
+                        margin-left: 5%;
+                        margin-right: 5%;
                     }
-                    .title {
-                        font-size: 20px
+                    .article {
+                        border-bottom: medium solid #ffffff;
+                        padding: 4%;
+                    }
+            
+                    .article-title {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        font-size: 19px !important;
+                        color:var(--vscode-list-hoverForeground)
+                    }
+
+                    .article-option{
+                        margin-top:5px
                     }
                 `}
                 </style>
                 {this.props.articledatas.map((each_article) =>
                     <div className="article">
-                        <a className="title" href={each_article.link} >{each_article.title}</a>
-                        <div>
+                        <div className="article-title">
+                            <a href={each_article.link} >{each_article.title}</a>
+                        </div>
+                        <div className="article-option">
                             {(() => {
                                 if (each_article.source && each_article.source._) {
-                                    return <span><a href="" onClick={()=>this.postData(each_article.source.$.url)}>{each_article.source._}</a>&ensp;&ensp;</span>;
+                                    return (
+                                        <span className="media-name">
+                                            <a href="" onClick={() => this.postData(each_article.source.$.url)}>
+                                                {each_article.source._}
+                                            </a>&ensp;&ensp;
+                                        </span>
+                                    );
                                 }
                             })()}
-                            <span>{each_article.pubDate}</span>
+                            <span className="article-date">{each_article.pubDate}</span>
                         </div>
                     </div>
                 )

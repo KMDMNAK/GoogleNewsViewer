@@ -4,10 +4,6 @@ import { ACTIVE_COMMANDS } from './config'
 import { ActionCommands } from './action';
 export const activate = (vscodeContext: vscode.ExtensionContext) => {
     console.log('Congratulations, your extension "google-news-reader" is now active!');
-    let disposable = vscode.commands.registerCommand('googlenews.react.helloWorld', () => {
-        vscode.window.showInformationMessage('Hello World!');
-    });
-    vscodeContext.subscriptions.push(disposable);
     const registerVscodeCommand = (commandName: ActionCommands) => {
         vscodeContext.subscriptions.push(
             vscode.commands.registerCommand(commandName, () => {

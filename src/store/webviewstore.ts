@@ -80,7 +80,7 @@ export default class WebViewStore extends Store {
         <div id="${REACT_CONTAINER_TAGNAME}"></div>
         <script src="${vscode.Uri.file(path.join(this.extensionPath, "dist", jsfileuri)).with({ scheme: 'vscode-resource' })}"></script>
         <script>
-            const vscode=acquireVsCodeApi();
+            let vscode=acquireVsCodeApi();
             ${VIEW_NAME_SPACE}.activate(vscode);
         </script>
         <style>
