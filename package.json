@@ -1,8 +1,8 @@
 {
-    "name": "google-news-reader",
+    "name": "googlenewsreader",
     "displayName": "Google News Reader",
-    "description": "you can read google news on vscode",
-    "version": "0.0.1",
+    "description": "you can read Google news on vscode",
+    "version": "0.1.0",
     "engines": {
         "vscode": "^1.37.0"
     },
@@ -20,15 +20,15 @@
         "commands": [
             {
                 "command": "googlenews.view.search.query",
-                "title": "Search Query"
+                "title": "Google News:Search Query"
             },
             {
                 "command": "googlenews.view.search.geo",
-                "title": "Search Geo"
+                "title": "Google News:Search Geo"
             },
             {
                 "command": "googlenews.view.search.topic",
-                "title": "Search Topic"
+                "title": "Google News:Search Topic"
             }
         ],
         "configuration": {
