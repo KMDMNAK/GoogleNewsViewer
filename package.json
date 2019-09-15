@@ -2,7 +2,8 @@
     "name": "googlenewsviewer",
     "displayName": "Google News Viewer",
     "description": "you can read Google news on vscode",
-    "version": "0.1.1",
+    "version": "1.0.0",
+    "icon":"google-news-vscode-logo.png",
     "engines": {
         "vscode": "^1.37.0"
     },

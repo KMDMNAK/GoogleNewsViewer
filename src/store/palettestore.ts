@@ -40,7 +40,7 @@ export default class PaletteStore extends Store {
                     commandName: ActionCommands.searchQuery,
                     key: ActionCommands.searchQuery + `.${value}`,
                     value: value
-                }
+                };
                 this.dispatcher.dispatch(action);
             });
         });

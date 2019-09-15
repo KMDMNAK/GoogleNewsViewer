@@ -37,13 +37,13 @@ export default class Dispatch {
             (action: ActionContent) => {
                 // storeの生成は後回し
                 const action_key = action.key;
-                const store_key="view one"
+                const store_key = "view one";
                 if(action_key===undefined){
                     throw new Error("action.key is undefined");
                 }
                 let store = this.webviewstores[store_key];
                 if (!store) {
-                    console.log("new webviewpanel")
+                    console.log("new webviewpanel");
                     store=new WebViewStore(this,store_key,this.extensionPath);
                 }
                 console.log("action key is "+action_key)
