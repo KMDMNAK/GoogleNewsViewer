@@ -3,7 +3,7 @@
     "displayName": "Google News Viewer",
     "description": "you can read Google news on vscode",
     "version": "1.0.0",
-    "icon":"google-news-vscode-logo.png",
+    "icon": "google-news-vscode-logo.png",
     "engines": {
         "vscode": "^1.37.0"
     },
@@ -52,14 +52,15 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "npm run compileMain && npm run compileWebview",
+        "vscode:prepublish_": "npm run compileMain && npm run compileWebview",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "pretest": "npm run compile",
         "test": "node ./out/test/runTest.js",
         "compileWebviewWatch": "webpack --mode production --config webpack.config.view.js --watch",
         "compileWebview": "webpack --mode production --config webpack.config.view.js",
-        "compileMain": "webpack --mode production --config webpack.config.src.js"
+        "compileMain": "webpack --mode production --config webpack.config.src.js",
+        "vscode:prepublish": "npm install"
     },
     "devDependencies": {
         "@material-ui/core": "^4.4.1",
