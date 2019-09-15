@@ -63,6 +63,10 @@ const Navigation = () => {
                         clear: both;
                         display: block;
                     }
+                    #submit-button{
+                        width:0px;
+                        height:0px;
+                    }
                     `
             }
             </style>
@@ -81,7 +85,7 @@ const Navigation = () => {
                 <div id="site-input" style={{ textAlign: "center" }}>
                     <WordInput label="site" styleClass={classes.siteInput} handleChange={handleChange}/>
                 </div>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" id="submit-button"/>
             </form>
         </nav>
     );

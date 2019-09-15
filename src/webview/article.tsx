@@ -5,7 +5,7 @@ import { ActionCommands, ActionContent } from '../action';
 //import { VscodeNameSpace } from './App'
 
 //export default class Article extends React.Component<{ articledatas: any[], vscode: VscodeNameSpace }>{
-    export default class Article extends React.Component<{ articledatas: any[]}>{
+export default class Article extends React.Component<{ articledatas: any[] }>{
     //vscode: VscodeNameSpace;
     constructor(props: any) {
         super(props);
@@ -50,7 +50,7 @@ import { ActionCommands, ActionContent } from '../action';
                 {this.props.articledatas.map((each_article) =>
                     <div className="article">
                         <div className="article-title">
-                            <a href={each_article.link} >{each_article.title}</a>
+                            <a href={each_article.link} title={each_article.title}>{each_article.title}</a>
                         </div>
                         <div className="article-option">
                             {(() => {
