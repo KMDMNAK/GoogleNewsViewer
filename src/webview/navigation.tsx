@@ -66,6 +66,7 @@ const Navigation = () => {
                     #submit-button{
                         width:0px;
                         height:0px;
+                        visibility:hidden;
                     }
                     `
             }

@@ -34,7 +34,7 @@ export default class Article extends React.Component<{ articledatas: any[] }, { 
     postData(url: string) {
         const action: ActionContent = {
             commandName: ActionCommands.searchQuery,
-            value: `site:${url}`
+            value: `inurl:${url}`
         }
         //this.vscode.window.showInformationMessage("posted data")
         vscode.postMessage(action);
@@ -154,30 +154,3 @@ export default class Article extends React.Component<{ articledatas: any[] }, { 
     }
 
 }
-
-/*
-before media-name
-<a href="" onClick={() => this.postData(each_article.source.$.url)}>
-                                                {each_article.source._}
-                                            </a>&ensp;&ensp;
-under article-title
-<a href={each_article.link} title={each_article.title}>{each_article.title}</a>
-<a href={each_article.link}
-                                    title={each_article.title}
-                                    onClick={(event:any) => {
-                                        event.preventDefault();
-                                        this.updateModalCondition(each_article.title);
-                                        console.log("start modal");
-                                    }}>
-                                    {each_article.title}
-                                </a>
-
-<Modal
-                                                aria-labelledby="simple-modal-title"
-                                                aria-describedby="simple-modal-description"
-                                                open={this.state.ModalConditions[each_article.title]}
-                                                onClose={() => { this.handleModalClose(each_article.title);}}
-                                            >
-                                                {each_article.description}
-                                            </Modal>
-*/
