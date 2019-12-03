@@ -33,8 +33,8 @@ const Navigation = () => {
         setValues({ ...values, [name]: event.target.value });
     };
     const submit = () => {
-        console.log(values)
-        let query = ""
+        console.log(values);
+        let query = "";
         if (values.word !== "") {
             query += values.word;
         }
@@ -45,15 +45,15 @@ const Navigation = () => {
             query += " after:" + values.after;
         }
         if (values.site !== "") {
-            query += " site:" + values.site;
+            query += " inurl:" + values.site;
         }
         const action: ActionContent = {
-            commandName:ActionCommands.searchQuery,
+            commandName: ActionCommands.searchQuery,
             value: query
         }
         vscode.postMessage(action)
         console.log(query);
-    }
+    };
     return (
         <nav id="controller" style={style}>
             <style>{

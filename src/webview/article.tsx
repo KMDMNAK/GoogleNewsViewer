@@ -3,13 +3,7 @@
 import * as React from 'react';
 import { ActionCommands, ActionContent } from '../action';
 import Modal from '@material-ui/core/Modal';
-import { bool } from 'prop-types';
-import { Event } from 'vscode';
-/*
-*/
-//import { VscodeNameSpace } from './App'
 
-//export default class Article extends React.Component<{ articledatas: any[], vscode: VscodeNameSpace }>{
 export default class Article extends React.Component<{ articledatas: any[] }, { ModalConditions: any, KeyOfModalOpening: string | null }>{
     //vscode: VscodeNameSpace;
     constructor(props: any) {
@@ -136,7 +130,7 @@ export default class Article extends React.Component<{ articledatas: any[] }, { 
                                     if (each_article.source && each_article.source._) {
                                         return (
                                             <span className="media-name">
-                                                <a href="" onClick={() => this.postData(each_article.source.$.url)}>
+                                                <a href="" title={each_article.source.$.url} onClick={() => this.postData(each_article.source.$.url)}>
                                                     {each_article.source._}
                                                 </a>
                                             </span>

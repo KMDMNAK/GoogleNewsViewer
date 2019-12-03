@@ -19,8 +19,6 @@ declare global{
 //export var vscode: VscodeNameSpace;
 export const activate = (vscode1: VscodeNameSpace) => {
     vscode = vscode1;
-    //vscode.window.showInformationMessage("HEY!")
-    //render(<WebView vscode={vscode} />, document.getElementById(REACT_CONTAINER_TAGNAME));
     render(<WebView />, document.getElementById(REACT_CONTAINER_TAGNAME));
 };
 
