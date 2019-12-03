@@ -9,7 +9,8 @@ export default class GoogleNewsConnector {
         customFields: {
             item: [
                 ['media:content', 'media:content'],
-                ["source", "source"]
+                ["source", "source"],
+                ["description","description"]
             ]
         },/*
         xml2js: {
