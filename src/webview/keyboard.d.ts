@@ -1,0 +1,1 @@
+export default function register_keyboard_handling(target_className:string): void

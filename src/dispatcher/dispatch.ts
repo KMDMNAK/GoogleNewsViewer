@@ -37,7 +37,7 @@ export default class Dispatch {
             (action: ActionContent) => {
                 // storeの生成は後回し
                 const action_key = action.key;
-                const store_key = "view one";
+                const store_key = "GoogleNews";
                 if(action_key===undefined){
                     throw new Error("action.key is undefined");
                 }

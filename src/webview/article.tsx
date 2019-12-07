@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { ActionCommands, ActionContent } from '../action';
 import Modal from '@material-ui/core/Modal';
+import regist_keyboard from './keyboard';
 
 export default class Article extends React.Component<{ articledatas: any[] }, { ModalConditions: any, KeyOfModalOpening: string | null }>{
     //vscode: VscodeNameSpace;
@@ -63,6 +64,12 @@ export default class Article extends React.Component<{ articledatas: any[] }, { 
             KeyOfModalOpening: null
         });
     }
+    componentDidMount() {
+        regist_keyboard("article-title-a");
+    }
+    componentDidUpdate() {
+        regist_keyboard("article-title-a");
+    }
     render() {
         return (
             <div id="articles">
@@ -99,6 +106,7 @@ export default class Article extends React.Component<{ articledatas: any[] }, { 
                             <div className="article-title">
                                 <a href={each_article.link}
                                     title={each_article.title}
+                                    className={"article-title-a"}
                                 >
                                     {each_article.title}
                                 </a>
