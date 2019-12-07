@@ -1,10 +1,13 @@
 const register_keyboard_handling = (target_className) => {
     let flag = true;
     const targets = document.getElementsByClassName(target_className);
+    const inputs = document.getElementsByTagName("input");
+
     const getNearestNodePreceding = () => {
         /*
         主に,上矢印を使用した場合を想定
         */
+        console.log("get near preceding")
         const active_element = document.activeElement;
         if (!active_element) {
             return;
@@ -25,6 +28,7 @@ const register_keyboard_handling = (target_className) => {
         /*
         主に,下矢印を使用した場合を想定
         */
+        console.log("get near followinig")
         const active_element = document.activeElement;
         if (!active_element) {
             return;
@@ -38,9 +42,35 @@ const register_keyboard_handling = (target_className) => {
             }
         }
     }
+    const getInput = (isShift) => {
+        const active_element = document.activeElement;
+        if (!active_element) {
+            return;
+        }
+        if (isShift) {
+            for (let i = inputs.length - 1; i >= 0; i--) {
+                //console.log(String(i), active_element.compareDocumentPosition(targets[i]))
+                if (active_element.DOCUMENT_POSITION_PRECEDING === active_element.compareDocumentPosition(inputs[i])) {
+                    inputs[i].focus();
+                    return;
+                }
+            }
+
+            inputs[inputs.length - 1].focus()
+        } else {
+            for (let i = 0; i < inputs.length; i++) {
+                if (active_element.DOCUMENT_POSITION_FOLLOWING === active_element.compareDocumentPosition(inputs[i])) {
+                    inputs[i].focus();
+                    return;
+                }
+            }
+            inputs[0].focus();
+        }
+    }
 
     window.addEventListener("keydown", (e) => {
-        //console.log(e.keyCode);
+        console.log(e.keyCode);
+        console.log(flag);
 
         switch (e.keyCode) {
             case 74://j
@@ -53,6 +83,7 @@ const register_keyboard_handling = (target_className) => {
                 //arrow down
                 if (document.activeElement.tagName === "BODY") {
                     targets[0].focus();
+                    flag = true;
                     return;
                 }
                 getNearestNodeFollowing();
@@ -68,6 +99,20 @@ const register_keyboard_handling = (target_className) => {
                 //arrow up
                 getNearestNodePreceding();
                 flag = true
+                return;
+            }
+            // press/
+            case 191: {
+                if (!flag) {
+                    return;
+                }
+                if (!e.ctrlKey) {
+                    return;
+                }
+                flag = false;
+                getInput(e.shiftKey)
+
+                flag = true;
                 return;
             }
         }

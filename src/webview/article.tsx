@@ -68,9 +68,10 @@ export default class Article extends React.Component<{ articledatas: any[] }, { 
         regist_keyboard("article-title-a");
     }
     componentDidUpdate() {
-        regist_keyboard("article-title-a");
+        //regist_keyboard("article-title-a");
     }
     render() {
+        console.log(this.props.articledatas);
         return (
             <div id="articles">
                 <style>

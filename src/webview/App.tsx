@@ -33,6 +33,7 @@ export default class WebView extends React.Component<{ }, { action_key: string, 
         window.addEventListener('message', event => {
             const message = event.data; // The JSON data our extension sent
             //vscode.window.showInformationMessage("get message")
+            console.log(message.articledatas);
             this.setState({
                 action_key: message.action_key,
                 articledatas: message.articledatas
