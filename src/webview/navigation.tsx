@@ -23,13 +23,13 @@ const Navigation = () => {
     const [values, setValues] = React.useState({
         after: moment().format('YYYY-MM-DD'),
         before: moment().format('YYYY-MM-DD'),
-        site:"",
-        word:""
-      });
+        site: "",
+        word: ""
+    });
     //const [selectedDate, handleDateChange]: any[] = useState(new Date());
-    
+
     const handleChange = (name: string) => (event: any) => {
-        
+
         setValues({ ...values, [name]: event.target.value });
     };
     const submit = () => {
@@ -71,22 +71,22 @@ const Navigation = () => {
                     `
             }
             </style>
-            <form className={"clearfix " + classes.container} onSubmit={()=>submit()} noValidate>
+            <form className={"clearfix " + classes.container} onSubmit={() => submit()} noValidate>
                 <div id="controller-date" style={{ float: "left" }}>
                     <div className="date-select" style={{ marginBottom: "10px" }}>
-                        <DateAndTimePickers label="after" handleChange={handleChange}/>
+                        <DateAndTimePickers label="after" handleChange={handleChange} />
                     </div>
                     <div className="date-select">
-                        <DateAndTimePickers label="before" handleChange={handleChange}/>
+                        <DateAndTimePickers label="before" handleChange={handleChange} defaultDate={moment().format('YYYY-MM-DD')} />
                     </div>
                 </div>
                 <div id="word-input" style={{ float: "left", textAlign: "center" }}>
-                    <WordInput label="word" styleClass={classes.wordInput} handleChange={handleChange}/>
+                    <WordInput label="word" styleClass={classes.wordInput} handleChange={handleChange} />
                 </div>
                 <div id="site-input" style={{ textAlign: "center" }}>
-                    <WordInput label="site" styleClass={classes.siteInput} handleChange={handleChange}/>
+                    <WordInput label="site" styleClass={classes.siteInput} handleChange={handleChange} />
                 </div>
-                <input type="submit" value="Submit" id="submit-button"/>
+                <input type="submit" value="Submit" id="submit-button" />
             </form>
         </nav>
     );
@@ -155,7 +155,7 @@ const DateAndTimePickers = (props: any) => {
             id="datetime-local"
             label={props.label}
             type="date"
-            defaultValue={moment().format('YYYY-MM-DD')}//"2017-05-24T10:30"
+            defaultValue={props.defaultDate}//"2017-05-24T10:30"
             className={classes.textField}
             variant="outlined"
             InputLabelProps={{

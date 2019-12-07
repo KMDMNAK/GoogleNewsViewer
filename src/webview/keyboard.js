@@ -7,7 +7,6 @@ const register_keyboard_handling = (target_className) => {
         /*
         主に,上矢印を使用した場合を想定
         */
-        console.log("get near preceding")
         const active_element = document.activeElement;
         if (!active_element) {
             return;
@@ -28,7 +27,6 @@ const register_keyboard_handling = (target_className) => {
         /*
         主に,下矢印を使用した場合を想定
         */
-        console.log("get near followinig")
         const active_element = document.activeElement;
         if (!active_element) {
             return;
@@ -69,9 +67,6 @@ const register_keyboard_handling = (target_className) => {
     }
 
     window.addEventListener("keydown", (e) => {
-        console.log(e.keyCode);
-        console.log(flag);
-
         switch (e.keyCode) {
             case 74://j
             case 40: {
@@ -79,7 +74,6 @@ const register_keyboard_handling = (target_className) => {
                     return;
                 }
                 flag = false;
-                console.log(e.keyCode)
                 //arrow down
                 if (document.activeElement.tagName === "BODY") {
                     targets[0].focus();
